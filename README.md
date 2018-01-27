@@ -2,6 +2,13 @@
 
 > A Vue.js Boilerplate
 
+Component Wish List
+- DataTable
+- KanBan
+- JSON Form Builder
+- Project File/Folder Structure
+
+
 ## Build Setup
 
 ``` bash
