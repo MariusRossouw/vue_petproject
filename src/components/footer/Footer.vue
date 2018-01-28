@@ -1,5 +1,5 @@
 <template>
     <div>
-        <p>Copyright Marius Rossouw 2018</p>
+        <p>Copyright Marius Simo Renee @ 2018</p>
     </div>
 </template>
