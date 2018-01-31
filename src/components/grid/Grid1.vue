@@ -26,6 +26,10 @@
                 </td>
             </tr>
         </table>
+        <pre>{{one}}</pre>
+        <!-- <p v-bind:test="test.value">{{test.value}}</p>
+        <p v-bind:test="test.value">{{test}}</p>
+        <p v-bind:test="test.value">{{value}}</p> -->
     </div>
 </template>
 
@@ -39,6 +43,7 @@
             colTemplate: {},
             rowTemplate: {},
             gridTemplate: {},
+            one: '',
         },
         data() {
             return {

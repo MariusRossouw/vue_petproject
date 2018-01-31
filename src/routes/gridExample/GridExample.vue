@@ -5,7 +5,7 @@
             <hr/>
             <div>
                 <h3>Result</h3>
-                <GridTable1 :colTemplate="colTemplate" :rowTemplate="rowTemplate" :gridTemplate="gridTemplate"></GridTable1>
+                <GridTable1 :colTemplate="colTemplate" :rowTemplate="rowTemplate" :gridTemplate="gridTemplate" :one="Test"></GridTable1>
             </div>
             <hr/>
             <div>
@@ -27,6 +27,7 @@
                     <h4>General (gridTemplate)</h4>
                     <pre>{{ gridTemplate }}</pre>
                 </div>
+                <pre>{{test}}</pre>
             </div>
         </div>
     </div>
@@ -60,6 +61,7 @@
                     search: true,
                 },
                 component: '<GridTable1 :colTemplate="colTemplate" :rowTemplate="rowTemplate" :gridTemplate="gridTemplate"></GridTable1>',
+                Test:'Hallo Test',
             }
         },
         methods : {

@@ -7,6 +7,7 @@ import User from './routes/user/User.vue'
 import StoryBoardExample from './routes/storyBoardExample/StoryBoardExample.vue'
 import Project from './routes/project/Project.vue'
 import Settings from './routes/settings/Settings.vue'
+import FormExample from './routes/formExample/FormExample.vue'
 
 export const routes = [
   {path: '/', component: Home},
@@ -18,4 +19,5 @@ export const routes = [
   {path: '/storyBoardExample/:id', component: StoryBoardExample},
   {path: '/project/:id', component: Project},
   {path: '/settings', component: Settings},
+  {path: '/formExample', component: FormExample},
 ]

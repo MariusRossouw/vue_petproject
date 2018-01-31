@@ -3,17 +3,24 @@
 require('./assets/uikit/css/uikit.min.css')
 require('./assets/uikit/js/uikit-icons.min.js')
 require('./assets/uikit/js/uikit.min.js')
+require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource';
 import underscore from 'vue-underscore';
+import VueFormGenerator from "vue-form-generator";
+
+
 
 import App from './App.vue'
 import { routes } from './routing_table'
 // import vueKanban from 'vue-kanban'
 
 // Vue.use(vueKanban)
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+Vue.use(VueResource);
+Vue.use(VueFormGenerator);
 
 const router = new VueRouter({
   mode: 'history',

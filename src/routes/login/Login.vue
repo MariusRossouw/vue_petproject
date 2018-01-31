@@ -1,34 +1,45 @@
 <template>
-    <div>
-        <h1>The Login Route</h1>
-        <div class="uk-conatainer">
-            <form>
-                <fieldset class="uk-fieldset">
-                    <center>
-                        <legend class="uk-legend">Login</legend>
-
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-stacked-text">Email / Mobile Number</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input uk-width-1-4" id="form-stacked-text" type="text" placeholder="Email / Mobile Number">
-                            </div>
-                        </div>
-
-                        <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Password</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input uk-width-1-4" id="form-horizontal-text" type="password" placeholder="Password">
-                            </div>
-                        </div>
-
-                        <div class="uk-margin">
-                            <div class="uk-form-controls">
-                                <button class="uk-button">Login</button>
-                            </div>
-                        </div>
-                    </center>
-                </fieldset>
-            </form>
-        </div>
+    <div class="hello">
+        <login-component
+        :errorMessage="errorMessage"
+        v-on:loginCredentials="submit"
+        passwordPattern=".{2,20}" 
+        passwordMessage="Greater than 1 and less than 21"
+        ></login-component>
     </div>
 </template>
+
+<script>
+    import LoginComponent from '../../components/login/Login.vue'
+    export default {
+        name: 'hello',
+        components: {
+            LoginComponent,
+            'login-component': LoginComponent
+        },
+        data () {
+            return {
+                errorMessage: ''
+            }
+        },
+        methods: {
+            submit: function(event) {
+                let request = event;
+                console.log(request);
+                this.$http.post('//canserve-api.stratech.co.za/login', request)
+                    .then(response => {
+                        console.log(response);
+                        this.profile = response.body.data;
+                        this.$router.push("/kanbanExample/12");
+                    }, error => {
+                        console.log(error);
+                    }
+                );
+            }
+        }
+    }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>

@@ -12,6 +12,7 @@
                     <li><router-link to="/user/7">User</router-link></li>
                     <li><router-link to="/project/5">Project</router-link></li>
                     <li><router-link to="/settings">Settings</router-link></li>
+                    <li><router-link to="/formExample">FormExample</router-link></li>
                 </ul>
             </div>
         </nav>
