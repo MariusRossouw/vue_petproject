@@ -14,7 +14,7 @@ import "vue-form-generator/dist/vfg.css";
 
 
 import App from './App.vue'
-import { routes } from './routing_table'
+import { routes } from './routes'
 // import vueKanban from 'vue-kanban'
 
 // Vue.use(vueKanban)
