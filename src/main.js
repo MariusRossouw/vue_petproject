@@ -10,7 +10,7 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource';
 import underscore from 'vue-underscore';
 import VueFormGenerator from "vue-form-generator";
-
+import "vue-form-generator/dist/vfg.css";
 
 
 import App from './App.vue'
