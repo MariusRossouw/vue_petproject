@@ -11,6 +11,7 @@ import VueResource from 'vue-resource';
 import underscore from 'vue-underscore';
 import VueFormGenerator from "vue-form-generator";
 import "vue-form-generator/dist/vfg.css";
+import VModal from 'vue-js-modal'
 
 
 import App from './App.vue'
@@ -21,6 +22,7 @@ import { routes } from './routes'
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueFormGenerator);
+Vue.use(VModal);
 
 const router = new VueRouter({
   mode: 'history',

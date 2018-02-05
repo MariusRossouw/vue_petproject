@@ -173,7 +173,7 @@
                                     </div>
                                     <!-- The Add Componet Expanded Footer that is always available -->
                                     <div v-if="component.expand" class="uk-grid" style="color:black; padding-left:0px !important; margin-left:0px; margin-top:0px; background-color: white; border-top:solid 2px #F0EFEB;">
-                                        <div @click="addTask(element.id, component.id)" class="uk-width-5-5" style="height:40px; padding-left:0px !important; height:40px; font-size:20px; padding-top:5px;">
+                                        <div @click="addTask(element.id, component)" class="uk-width-5-5" style="height:40px; padding-left:0px !important; height:40px; font-size:20px; padding-top:5px;">
                                             <center>
                                                 <a>
                                                     + Task
@@ -243,18 +243,71 @@
                 </div>
             </div>
         </div>
+        <modal name="element_add" :height=250 @before-open="beforeOpen">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel" style="border: solid 1px #2ca0d5;">
+                        <div class="panel-heading" style="background-color:#2ca0d5; color:white; ">
+                            <h3 class="panel-title">Element Add</h3>
+                        </div>
+                        <div class="panel-body">
+                            <vue-form-generator :schema="schemaElementAdd" :model="modelElementAdd" :formOptions="formOptionsElementAdd"></vue-form-generator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal>
     </div>
 
 </template>
 
 <script>
 import {_} from 'vue-underscore';
+import VueFormGenerator from "vue-form-generator";
 export default {
     components: {
-
+        "vue-form-generator": VueFormGenerator.component
     },
-    data: function() {
+    data() {
         return {
+            modelElementAdd: {
+                name: "Element Name",
+                project_name: 'Canserve',
+                project_id: 12,
+                expand: false,
+                image: ''
+            },
+            schemaElementAdd: {
+                fields: [{
+                        type: "input",
+                        inputType: "text",
+                        label: "Element Name",
+                        model: "name",
+                        placeholder: "Element Name"
+                    },
+                    {
+                        type: "upload",
+                        label: "Image",
+                        model: "image",
+                        inputName: "image",
+                        onChanged(model, schema, event) {
+                            console.log(model, schema, event);
+                        }
+                    },
+                    {
+                        type: "submit",
+                        label: "",
+                        buttonText: "Submit",
+                        onSubmit: this.saveElement,
+                    }
+
+                ]
+            },
+
+            formOptionsElementAdd: {
+                validateAfterLoad: false,
+                validateAfterChanged: false
+            },
             elements: [
                 {
                     name: "Element 1",
@@ -352,22 +405,37 @@ export default {
         }
     },
     methods : {
-        addElement: function(){
-            var o = {
-                type: "element",
+        saveElement() {
+            let request = this.modelElementAdd;
+            console.log(request);
+            // this.$http.post('//canserve-api.stratech.co.za/login', request)
+            //     .then(response => {
+            //         console.log(response);
+            //         this.$modal.hide('element_add');
+            //     }, error => {
+            //         console.log(error);
+            //     }
+            // );
+        },
+        addElement(){
+            this.$modal.show('element_add', { type: "element",
                 name: "Untitled Element",
                 project_name: "Untitled",
                 img: "logo.png",
                 id: null,
                 expand: false,
                 components: []
-            };
-            this.elements.push(o);
+            });
         },
-        removeElement: function(index){
+        beforeOpen (event) {
+            console.log(event.params);
+            this.elements.push(event.params);
+            this.modelElementAdd = event.params
+        },
+        removeElement(index){
             this.elements.splice(index, 1);
         },
-        addComponent: function(element_id){
+        addComponent(element_id){
             for(var i = 0; i < this.elements.length; i++){
                 if(this.elements[i].id === element_id){
                     var o = {
@@ -384,18 +452,18 @@ export default {
                 }
             }
         },
-        removeComponent: function(element_id,index){
+        removeComponent(element_id,index){
             for(var i = 0; i < this.elements.length; i++){
                 if(this.elements[i].id === element_id){
                     this.elements[i].components.splice(index, 1);
                 }
             }
         },
-        addTask: function(element_id, component_id){
+        addTask(element_id, component){
             for(var i = 0; i < this.elements.length; i++){
                 if(this.elements[i].id === element_id){
                     for(var j = 0; j < this.elements[i].components.length; j++){
-                        if(this.elements[i].components[j].id === component_id){
+                        if(this.elements[i].components[j].id === component.id){
                             var o = {
                                 type: "task",
                                 name: "Untitled Task",
@@ -411,15 +479,16 @@ export default {
                                 files: '',
                                 percentage_complete: 0,
                                 element_id: element_id,
-                                component_id: component_id
+                                component_id: component.id
                             }
                             this.elements[i].components[j].tasks.push(o);
+                            component.expand = false;
                         }
                     }
                 }
             }
         },
-        removeTask: function(element_id, component_id, index){
+        removeTask(element_id, component_id, index){
             for(var i = 0; i < this.elements.length; i++){
                 if(this.elements[i].id === element_id){
                     for(var j = 0; j < this.elements[i].components.length; j++){
@@ -430,7 +499,7 @@ export default {
                 }
             }
         },
-        expandElement: function(element){
+        expandElement(element){
             var task_list = [];
             for(var i = 0; i < element.components.length; i++){
                 for(var j = 0; j < element.components[i].tasks.length; j++){
@@ -466,7 +535,7 @@ export default {
             element.expand = !element.expand;
             console.log(JSON.stringify(element));
         },
-        expandComponent: function(component){
+        expandComponent(component){
             var groups = _(component.tasks).groupBy('kind');
 
             var out = _(groups).map(function(g, key) {
@@ -505,7 +574,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
     @import '../../assets/css/kanban.scss';
     .storyCardContainer {
         overflow-y: auto;
@@ -546,6 +616,7 @@ export default {
         text-overflow: ellipsis;
         letter-spacing: 2px;
         text-align: center;
+        margin-top: 0px;
     }
     .storyCardBody {
         height:180px; 
@@ -592,5 +663,6 @@ export default {
         height:40px; 
         background-color: white;
     }
+    
 </style>
 
