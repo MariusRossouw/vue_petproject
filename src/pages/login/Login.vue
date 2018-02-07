@@ -26,7 +26,9 @@
             submit: function(event) {
                 let request = event;
                 console.log(request);
-                this.$http.post('//canserve-api.stratech.co.za/login', request)
+                
+                // this.$http.post('http://localhost:31017/login', request)
+                this.$http.post(this.$store.state.remoteUrl + '/login', request)
                     .then(response => {
                         console.log(response);
                         this.profile = response.body.data;

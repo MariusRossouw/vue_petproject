@@ -2,7 +2,7 @@
     <div class="grid-container">
         <table>
             <tr>
-                <th v-for="c in colTemplate" :style="{'width': c.width}" :key="c">{{ c.name }}</th>
+                <th v-for="c in colTemplate" :style="{'width': c.width}" :key="c.id">{{ c.name }}</th>
             </tr>
             <tr v-if="gridTemplate.search === true">
                 <th v-for="s in colTemplate">

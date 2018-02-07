@@ -243,7 +243,7 @@
                 </div>
             </div>
         </div>
-        <modal name="element_add" :height=250 @before-open="beforeOpen">
+        <modal name="element_add" :height=182 @before-open="beforeOpen">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel" style="border: solid 1px #2ca0d5;">
@@ -284,15 +284,6 @@ export default {
                         label: "Element Name",
                         model: "name",
                         placeholder: "Element Name"
-                    },
-                    {
-                        type: "upload",
-                        label: "Image",
-                        model: "image",
-                        inputName: "image",
-                        onChanged(model, schema, event) {
-                            console.log(model, schema, event);
-                        }
                     },
                     {
                         type: "submit",
